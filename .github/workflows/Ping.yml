@@ -14,7 +14,7 @@ jobs:
         run: |
           for i in {1..12}
           do
-            curl -s https://your-replit-url.repl.co/
+            curl -s https://240a81b0-7fc0-4b2f-9a81-75a2ad07195b-00-3grvtt2u4ccmw.pike.replit.dev/
             echo "✅ Ping $i sent!"
             sleep 5
           done
