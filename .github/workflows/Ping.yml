@@ -14,7 +14,8 @@ jobs:
         run: |
           for i in {1..12}
           do
-            curl -s https://240a81b0-7fc0-4b2f-9a81-75a2ad07195b-00-3grvtt2u4ccmw.pike.replit.dev/
-            echo "✅ Ping $i sent!"
+            TIMESTAMP=$(date +"%H:%M:%S")
+            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://240a81b0-7fc0-4b2f-9a81-75a2ad07195b-00-3grvtt2u4ccmw.pike.replit.dev/)
+            echo "[$TIMESTAMP] ✅ Ping $i sent - Response: $RESPONSE"
             sleep 5
           done
