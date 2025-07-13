@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: 🔁 Loop ping to Replit (every 5s for 1 min)
         run: |
-          for i in {1..12}
+          for i in {1..30}
           do
             TIMESTAMP=$(date +"%H:%M:%S")
             RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://240a81b0-7fc0-4b2f-9a81-75a2ad07195b-00-3grvtt2u4ccmw.pike.replit.dev/)
