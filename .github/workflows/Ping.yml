@@ -1,0 +1,6 @@
+- name: ⏱️ Ping & Measure Time
+  run: |
+    start=$(date +%s%3N)
+    curl -s https://your-replit-bot-url.repl.co > /dev/null
+    end=$(date +%s%3N)
+    echo "🕒 Ping took $((end - start))ms"
