@@ -2,20 +2,33 @@ name: 🔁 Replit Pinger
 
 on:
   schedule:
-    - cron: "* * * * *"  # Runs every minute
-  workflow_dispatch:
+    - cron: "* * * * *"  # ⏰ Every minute
+  workflow_dispatch:     # 🖱️ Optional: Manual trigger
 
 jobs:
   ping-replit:
     runs-on: ubuntu-latest
 
     steps:
+      - name: 📥 Checkout repo
+        uses: actions/checkout@v3
+
       - name: 🔁 Loop ping to Replit (every 5s for 1 min)
         run: |
-          for i in {1..30}
+          mkdir -p logs
+          echo "📅 Log started at $(date)" >> logs/ping-logs.txt
+          for i in {1..60}
           do
-            TIMESTAMP=$(date +"%H:%M:%S")
-            RESPONSE=$(curl -s -o /dev/null -w "%{http_code}" https://240a81b0-7fc0-4b2f-9a81-75a2ad07195b-00-3grvtt2u4ccmw.pike.replit.dev/)
-            echo "[$TIMESTAMP] ✅ Ping $i sent - Response: $RESPONSE"
+            STATUS=$(curl -s -o /dev/null -w "%{http_code}" https://240a81b0-7fc0-4b2f-9a81-75a2ad07195b-00-3grvtt2u4ccmw.pike.replit.dev/)
+            echo "[$(date '+%T')] Ping $i => Status: $STATUS" >> logs/ping-logs.txt
             sleep 5
           done
+          echo "✅ Log ended at $(date)" >> logs/ping-logs.txt
+
+      - name: 💾 Commit ping logs
+        run: |
+          git config user.name "openspotify"
+          git config user.email "openspotify@users.noreply.github.com"
+          git add logs/ping-logs.txt
+          git commit -m "📌 Ping log update at $(date '+%T')" || echo "🌀 No changes to commit"
+          git push
