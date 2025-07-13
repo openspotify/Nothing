@@ -1,6 +1,20 @@
-- name: ⏱️ Ping & Measure Time
-  run: |
-    start=$(date +%s%3N)
-    curl -s https://your-replit-bot-url.repl.co > /dev/null
-    end=$(date +%s%3N)
-    echo "🕒 Ping took $((end - start))ms"
+name: 🔁 Replit Pinger
+
+on:
+  schedule:
+    - cron: "* * * * *"  # Runs every minute
+  workflow_dispatch:
+
+jobs:
+  ping-replit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 🔁 Loop ping to Replit (every 5s for 1 min)
+        run: |
+          for i in {1..12}
+          do
+            curl -s https://your-replit-url.repl.co/
+            echo "✅ Ping $i sent!"
+            sleep 5
+          done
